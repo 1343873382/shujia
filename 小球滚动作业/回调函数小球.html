@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>promise调用</title>
+    <style type="text/css">
+        .ball {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+        
+        .ball1 {
+            background-color: red;
+        }
+        
+        .ball2 {
+            background-color: yellow;
+        }
+        
+        .ball3 {
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ball ball1" style="margin-left: 0"></div>
+    <div class="ball ball2" style="margin-left: 0"></div>
+    <div class="ball ball3" style="margin-left: 0"></div>
+    <script type="text/javascript">
+        let ball1 = document.querySelector(".ball1");
+        let ball2 = document.querySelector(".ball2");
+        let ball3 = document.querySelector(".ball3");
+
+        function animate(ball, distance, cb) {
+            setTimeout(function() {
+                let marginLeft = parseInt(ball.style.marginLeft, 10);
+                if (marginLeft === distance) {
+                    cb()
+                    return
+                } else {
+                    if (marginLeft < distance) {
+                        marginLeft++;
+                    } else {
+                        marginLeft--;
+                    }
+                }
+                ball.style.marginLeft = marginLeft + 'px';
+                animate(ball, distance, cb)
+            }, 5)
+        }
+        animate(ball1, 300, function() {
+            animate(ball2, 300, function() {
+                animate(ball3, 300, function() {
+
+                })
+            })
+        })
+    </script>
+</body>
+
+</html>

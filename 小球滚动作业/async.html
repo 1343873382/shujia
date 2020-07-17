@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>promise调用</title>
+    <style type="text/css">
+        .ball {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+        
+        .ball1 {
+            background-color: red;
+        }
+        
+        .ball2 {
+            background-color: yellow;
+        }
+        
+        .ball3 {
+            background-color: green;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ball ball1" style="margin-left: 0"></div>
+    <div class="ball ball2" style="margin-left: 0"></div>
+    <div class="ball ball3" style="margin-left: 0"></div>
+    <script type="text/javascript">
+        let ball1 = document.querySelector(".ball1");
+        let ball2 = document.querySelector(".ball2");
+        let ball3 = document.querySelector(".ball3");
+
+        async function promiseAinmate(ball, distance) {
+            return await new Promise(function(resolve, reject) {
+                function _animate() {
+                    setTimeout(function() {
+                        let marginLeft = parseInt(ball.style.marginLeft, 10);
+                        if (marginLeft === distance) {
+                            resolve()
+                            return;
+                        } else {
+                            if (marginLeft < distance) {
+                                marginLeft++;
+                            } else {
+                                marginLeft--;
+
+                            }
+                        }
+                        ball.style.marginLeft = marginLeft + 'px';
+                        _animate();
+                    }, 5)
+                }
+                _animate();
+            })
+        }
+        promiseAinmate(ball1, 300)
+            .then(function() {
+                return promiseAinmate(ball2, 300)
+            })
+            .then(function() {
+                return promiseAinmate(ball3, 300)
+            })
+    </script>
+</body>
+
+</html>
